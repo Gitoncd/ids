@@ -1,0 +1,14 @@
+# SYNTHETIC TEACHING DATA — created for this assignment; not collected from a real server.
+Oct 25 10:00:01 server sshd[1024]: Failed password for root from 192.168.1.50 port 22 ssh2
+Oct 25 10:00:05 server sshd[1024]: Failed password for root from 192.168.1.50 port 22 ssh2
+Oct 25 10:00:10 server sshd[1025]: Accepted password for admin from 10.0.0.5 port 22 ssh2
+Oct 25 10:00:12 server sshd[1026]: Failed password for invalid user guest from 192.168.1.50 port 22 ssh2
+Oct 25 10:00:15 server sshd[1027]: Failed password for root from 192.168.1.50 port 22 ssh2
+Oct 25 10:00:35 server sshd[1028]: Failed password for test from 192.168.1.51 port 22 ssh2
+Oct 25 10:01:40 server sshd[1029]: Failed password for test from 192.168.1.51 port 22 ssh2
+Oct 25 10:02:02 server sshd[1030]: Accepted password for admin from 10.0.0.5 port 22 ssh2
+Oct 25 10:02:10 server sshd[1031]: Failed password for root from 192.168.1.50 port 22 ssh2
+Oct 25 10:02:12 server sshd[1032]: Failed password for root from 192.168.1.50 port 22 ssh2
+Oct 25 10:02:14 server sshd[1033]: Failed password for root from 192.168.1.50 port 22 ssh2
+Oct 25 10:03:00 server sshd[1034]: Failed password for invalid user oracle from 192.168.1.52 port 22 ssh2
+Oct 25 10:03:20 server sshd[1035]: Failed password for invalid user postgres from 192.168.1.52 port 22 ssh2

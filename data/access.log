@@ -1,0 +1,17 @@
+203.0.113.10 - - [20/Oct/2026:14:00:01 +0300] "GET / HTTP/1.1" 200 512
+203.0.113.11 - - [20/Oct/2026:14:00:03 +0300] "GET /products?id=12 HTTP/1.1" 200 1024
+203.0.113.12 - - [20/Oct/2026:14:00:05 +0300] "GET /search?q=network+security HTTP/1.1" 200 850
+203.0.113.50 - - [20/Oct/2026:14:01:01 +0300] "GET /search?q=UNION%20SELECT%20username,password%20FROM%20users HTTP/1.1" 400 120
+203.0.113.51 - - [20/Oct/2026:14:01:10 +0300] "GET /download?file=../../etc/passwd HTTP/1.1" 403 90
+203.0.113.52 - - [20/Oct/2026:14:01:20 +0300] "GET /comment?text=%3Cscript%3Ealert(1)%3C/script%3E HTTP/1.1" 400 110
+203.0.113.60 - - [20/Oct/2026:14:02:01 +0300] "POST /login.php HTTP/1.1" 401 75
+203.0.113.60 - - [20/Oct/2026:14:02:05 +0300] "POST /login.php HTTP/1.1" 401 75
+203.0.113.60 - - [20/Oct/2026:14:02:09 +0300] "POST /login.php HTTP/1.1" 401 75
+203.0.113.60 - - [20/Oct/2026:14:02:12 +0300] "POST /login.php HTTP/1.1" 401 75
+203.0.113.61 - - [20/Oct/2026:14:02:20 +0300] "GET /private HTTP/1.1" 401 60
+203.0.113.61 - - [20/Oct/2026:14:02:25 +0300] "GET /private HTTP/1.1" 401 60
+203.0.113.70 - - [20/Oct/2026:14:03:01 +0300] "GET /search?q=hello+world HTTP/1.1" 200 300
+MALFORMED LOG LINE: this line intentionally does not follow Apache combined log format
+203.0.113.80 - - [20/Oct/2026:14:03:20 +0300] "GET /redirect?next=javascript:alert(1) HTTP/1.1" 400 70
+203.0.113.81 - - [20/Oct/2026:14:03:25 +0300] "GET /download?file=..%2F..%2Fsecret.txt HTTP/1.1" 403 80
+203.0.113.90 - - [20/Oct/2026:14:04:01 +0300] "GET / HTTP/1.1" 200 512
