@@ -39,6 +39,9 @@ Dictionary<string, int> unauthorizedAlertLines = new Dictionary<string, int>();
 // Store suspicious request alerts.
 List<Alert> suspiciousAlerts = new List<Alert>();
 
+// Count each HTTP status code.
+Dictionary<int, int> statusCounts = new Dictionary<int, int>();
+
 int lineNumber = 0;
 int validLines = 0;
 int malformedLines = 0;
@@ -68,6 +71,16 @@ foreach (string line in File.ReadLines(accessLogPath))
     string ip = match.Groups["ip"].Value;
     string request = match.Groups["request"].Value;
     int status = int.Parse(match.Groups["status"].Value);
+
+    // Count the HTTP status code.
+if (statusCounts.ContainsKey(status))
+{
+    statusCounts[status]++;
+}
+else
+{
+    statusCounts[status] = 1;
+}
 
     Console.WriteLine($"IP: {ip} | Request: {request} | Status: {status}");
 
@@ -215,6 +228,13 @@ Console.WriteLine("\nAccess Log Summary:");
 Console.WriteLine($"Total lines: {lineNumber}");
 Console.WriteLine($"Valid entries: {validLines}");
 Console.WriteLine($"Malformed lines: {malformedLines}");
+
+Console.WriteLine("\nHTTP Status Code Summary:");
+
+foreach (var item in statusCounts)
+{
+    Console.WriteLine($"Status {item.Key}: {item.Value}");
+}
 
 
 // ==========================================
