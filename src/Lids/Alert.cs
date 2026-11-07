@@ -1,0 +1,1 @@
+public record Alert(string Rule, int? Line, string Ip, string Reason);
