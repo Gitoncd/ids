@@ -1,9 +1,9 @@
 ﻿
 using System.Text.RegularExpressions;
 
-// ==========================================
+
 // TASK B: SSH AUTHENTICATION LOG ANALYSIS
-// ==========================================
+
 
 string authLogPath = "data/auth.log";
 
@@ -22,36 +22,36 @@ foreach (Alert alert in authAlerts)
 }
 
 
-// ==========================================
+
 // TASK C: WEB SERVER ACCESS LOG ANALYSIS
-// ==========================================
+
 
 Console.WriteLine("\n========== TASK C: ACCESS LOG ANALYSIS ==========");
 
 string accessLogPath = "data/access.log";
 
-// Count HTTP 401 responses for each IP.
+// Count HTTP 401 .
 Dictionary<string, int> unauthorizedCounts = new Dictionary<string, int>();
 
-// Store the line where an IP reaches its third HTTP 401 response.
+
 Dictionary<string, int> unauthorizedAlertLines = new Dictionary<string, int>();
 
-// Store suspicious request alerts.
+
 List<Alert> suspiciousAlerts = new List<Alert>();
 
-// Count each HTTP status code.
+
 Dictionary<int, int> statusCounts = new Dictionary<int, int>();
 
 int lineNumber = 0;
 int validLines = 0;
 int malformedLines = 0;
 
-// Read the access log one line at a time.
+
 foreach (string line in File.ReadLines(accessLogPath))
 {
     lineNumber++;
 
-    // Parse the Apache access log entry.
+    
     Match match = Regex.Match(
         line,
         @"^(?<ip>\S+)\s+\S+\s+\S+\s+\[[^\]]+\]\s+""(?<request>.*?)""\s+(?<status>\d{3})\s+\d+$"
@@ -67,12 +67,12 @@ foreach (string line in File.ReadLines(accessLogPath))
 
     validLines++;
 
-    // Extract information from the log entry.
+   
     string ip = match.Groups["ip"].Value;
     string request = match.Groups["request"].Value;
     int status = int.Parse(match.Groups["status"].Value);
 
-    // Count the HTTP status code.
+    
 if (statusCounts.ContainsKey(status))
 {
     statusCounts[status]++;
@@ -84,13 +84,11 @@ else
 
     Console.WriteLine($"IP: {ip} | Request: {request} | Status: {status}");
 
-    // Decode URL-encoded characters before checking suspicious patterns.
+    
     string decodedRequest = Uri.UnescapeDataString(request);
 
 
-    // ==========================================
-    // RULE 1: SQL INJECTION
-    // ==========================================
+   
 
     if (Regex.IsMatch(decodedRequest, @"\bUNION\b", RegexOptions.IgnoreCase) &&
         Regex.IsMatch(decodedRequest, @"\bSELECT\b", RegexOptions.IgnoreCase))
@@ -104,9 +102,7 @@ else
     }
 
 
-    // ==========================================
-    // RULE 2: PATH TRAVERSAL
-    // ==========================================
+    
 
     if (decodedRequest.Contains("../") || decodedRequest.Contains(@"..\"))
     {
@@ -119,9 +115,7 @@ else
     }
 
 
-    // ==========================================
-    // RULE 3: CROSS-SITE SCRIPTING (XSS)
-    // ==========================================
+    
 
     if (decodedRequest.Contains("<script", StringComparison.OrdinalIgnoreCase))
     {
@@ -134,9 +128,7 @@ else
     }
 
 
-    // ==========================================
-    // RULE 4: JAVASCRIPT URL
-    // ==========================================
+   
 
     if (decodedRequest.Contains("javascript:", StringComparison.OrdinalIgnoreCase))
     {
@@ -149,9 +141,7 @@ else
     }
 
 
-    // ==========================================
-    // COUNT HTTP 401 RESPONSES
-    // ==========================================
+    
 
     if (status == 401)
     {
@@ -173,9 +163,7 @@ else
 }
 
 
-// ==========================================
-// PRINT HTTP 401 COUNTS
-// ==========================================
+
 
 Console.WriteLine("\nHTTP 401 Counts:");
 
@@ -185,9 +173,7 @@ foreach (var item in unauthorizedCounts)
 }
 
 
-// ==========================================
-// PRINT HTTP 401 ALERTS
-// ==========================================
+
 
 Console.WriteLine("\nHTTP 401 Alerts:");
 
@@ -204,9 +190,6 @@ foreach (var item in unauthorizedCounts)
 }
 
 
-// ==========================================
-// PRINT SUSPICIOUS REQUEST ALERTS
-// ==========================================
 
 Console.WriteLine("\nSuspicious Request Alerts:");
 
@@ -220,9 +203,7 @@ foreach (Alert alert in suspiciousAlerts)
 }
 
 
-// ==========================================
-// PRINT LOG SUMMARY
-// ==========================================
+
 
 Console.WriteLine("\nAccess Log Summary:");
 Console.WriteLine($"Total lines: {lineNumber}");
@@ -253,25 +234,25 @@ static List<Alert> AnalyzeAuthLog(string path)
     {
         lineNumber++;
 
-        // Skip blank lines.
+       
         if (string.IsNullOrWhiteSpace(line))
         {
             continue;
         }
 
-        // Skip comment lines.
+       
         if (line.TrimStart().StartsWith("#"))
         {
             continue;
         }
 
-        // Only count failed password events.
+        
         if (!line.Contains("Failed password"))
         {
             continue;
         }
 
-        // Extract the source IP address.
+        
         Match match = Regex.Match(
             line,
             @"\bfrom\s+(?<ip>\d{1,3}(?:\.\d{1,3}){3})\b"
@@ -290,7 +271,7 @@ static List<Alert> AnalyzeAuthLog(string path)
                 failedAttempts[ip] = 1;
             }
 
-            // Save the line where the IP reaches 3 failures.
+            
             if (failedAttempts[ip] == 3)
             {
                 alertLineNumbers[ip] = lineNumber;
